@@ -176,6 +176,14 @@ ENV NODE_ENV=production
 CMD ["node", "server.js"]
 ```
 
+
+
+#Team Members->
+Shrestha Shrinivas
+Yuvraj
+Vivek Kumar
+Vansh Kumar
+
 Build and run the container:
 ```bash
 docker build -t sevasetu .
