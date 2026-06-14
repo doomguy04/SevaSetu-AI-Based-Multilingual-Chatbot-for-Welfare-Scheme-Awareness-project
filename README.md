@@ -5,7 +5,7 @@ SevaSetu is an industry-grade, direct-to-citizen digital assistant built to brid
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 *   **RAG-Grounded AI Chatbot**: Employs Gemini (`gemini-2.0-flash`) with dynamic keyword-extraction context injection. Answers are grounded in the official schemes database (`schemes_db.json`) to prevent AI hallucinations.
 *   **Eligibility Wizard**: An interactive, 5-step demographic questionnaire covering occupation, income, agricultural land ownership, age, gender, and household status, returning programmatically matched welfare programs.
@@ -18,7 +18,7 @@ SevaSetu is an industry-grade, direct-to-citizen digital assistant built to brid
 
 ---
 
-## 🏗️ Technology Stack
+##  Technology Stack
 
 *   **Frontend**: React `v19.x`, Vite `v8.x`, Web Speech API (STT / TTS).
 *   **Backend**: Node.js, Express `v5.x` (featuring async route handlers).
@@ -27,7 +27,7 @@ SevaSetu is an industry-grade, direct-to-citizen digital assistant built to brid
 
 ---
 
-## 💻 Local Quickstart
+##  Local Quickstart
 
 ### 1. Clone & Install
 ```bash
@@ -54,7 +54,7 @@ npm run dev
 
 ---
 
-## 🚀 Production Deployment Guide
+##  Production Deployment Guide
 
 SevaSetu is designed to be deployed as a single unified service where the Express backend serves both the API endpoints and the static compiled frontend assets.
 
