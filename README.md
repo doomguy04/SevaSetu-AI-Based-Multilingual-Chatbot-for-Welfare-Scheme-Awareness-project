@@ -103,82 +103,7 @@ These hosting platforms compile and run the application directly from the Git re
 
 ---
 
-### 4. Deploying to Cloud VMs (AWS EC2, DigitalOcean, GCP)
 
-For deployments on virtual machines running Linux (Ubuntu/Debian):
-
-#### Step A: Build and Run Daemon (PM2)
-Install PM2 globally to keep the Node process running in the background:
-```bash
-npm install -g pm2
-npm run build
-pm2 start server.js --name "sevasetu"
-pm2 save
-pm2 startup
-```
-
-#### Step B: Configure Nginx as Reverse Proxy
-Install Nginx to route external requests (Port 80/443) to the internal Node server (Port 5000):
-```bash
-sudo apt update
-sudo apt install nginx
-```
-Edit the Nginx configuration `/etc/nginx/sites-available/default`:
-```nginx
-server {
-    listen 80;
-    server_name yourdomain.com www.yourdomain.com;
-
-    location / {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
-Test and restart Nginx:
-```bash
-sudo nginx -t
-sudo systemctl restart nginx
-```
-
-#### Step C: SSL Encryption (Certbot)
-Secure the server using Let's Encrypt SSL:
-```bash
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
-```
-
----
-
-### 5. Containerized Deployment (Docker)
-
-If deploying to Docker-based services (ECS, Kubernetes, GCP Cloud Run), use this multi-stage build:
-
-Create a `Dockerfile` at the root:
-```dockerfile
-# Stage 1: Build Frontend
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# Stage 2: Serve Backend & Frontend
-FROM node:20-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install --only=production
-COPY --from=builder /app/dist ./dist
-COPY server.js schemes_db.json ./
-EXPOSE 5000
-ENV NODE_ENV=production
-CMD ["node", "server.js"]
-```
 
 
 
@@ -188,8 +113,3 @@ Yuvraj
 Vivek Kumar
 Vansh Kumar
 
-Build and run the container:
-```bash
-docker build -t sevasetu .
-docker run -p 5000:5000 -e GEMINI_API_KEY="your_api_key" sevasetu
-```
